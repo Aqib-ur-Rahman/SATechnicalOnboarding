@@ -96,5 +96,43 @@
         </article>
     
     </main>
+    <h2>New version of portfolio will be updated before the timer stops:</h2>
+    <div id="countdown">
+        <p id="timer">00:00:00</p>
+    </div>
+
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration, hours, minutes, seconds;
+            
+            const countdown = setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(countdown);
+                    display.textContent = "TIME UP!";
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const now = new Date();
+            // Set target time as 24 hours from now
+            const target = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            const diff = target.getTime() - now.getTime();
+            const duration = Math.floor(diff / 1000); // Convert milliseconds into seconds
+
+            const display = document.querySelector('#timer');
+            startCountdown(duration, display);
+        };
+    </script>
 </body>
 </html>
